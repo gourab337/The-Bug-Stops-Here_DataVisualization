@@ -1,25 +1,23 @@
-import xlrd
-import pandas as pd
+mport pandas as pd 
 import matplotlib.pyplot as plt
 print("welcome to DashBoard")
-print("\nPress 1 if you want to see single rate and 2 for comparision(Predictions will be shown in both for the next few days):")
+print("\nPress 1 if you want to see single rate and 2 for comparision:")
 n = int(input())
 if(n == 1):
     print("Enter the Country you Want to See Rates Of:")
     s = str(input())
     s = s + ".xlsx"
+    df = pd.read_excel(s)
     loc = s
-    wb = xlrd.open_workbook(loc)
-    sheet = wb.sheet_by_index(0)
-    a = []
-    b = []
-    for i in range(1,sheet.nrows):
-        if(sheet.cell_value(i,2)!="ND"):
-            a.append(sheet.cell_value(i,0))
-            b.append(float(sheet.cell_value(i,2)))
-    plt.xlabel("Day")
+    date = list(df[df.columns[1]])
+    rate = list((df[df.columns[2]]))
+    rates= []
+    for item in rate:
+        rates.append(float(item))
+    plt.xlabel("Dates")
     plt.ylabel("Rate")
-    plt.plot(a,b)
+    plt.plot(date,rates)
+    plt.xticks(date[0:-1:999], rotation=25)
     plt.show()
 elif (n == 2):
     print("Type the number of currency:")
@@ -30,17 +28,16 @@ elif (n == 2):
         s = str(input())
         j = s
         s = s + ".xlsx"
+        df = pd.read_excel(s)
         loc = s
-        wb = xlrd.open_workbook(loc)
-        sheet = wb.sheet_by_index(0)
-        a = []
-        b = []
-        for i in range(1,sheet.nrows):
-            if(sheet.cell_value(i,2)!="ND"):
-                a.append(sheet.cell_value(i,0))
-                b.append(float(sheet.cell_value(i,2)))
-        plt.xlabel("Day")
+        date = list(df[df.columns[1]])
+        rate = list((df[df.columns[2]]))
+        rates = []
+        for item in rate:
+            rates.append(float(item))
+        plt.xlabel("Dates")
         plt.ylabel("Rate")
-        plt.plot(a,b,label = j)
+        plt.plot(date,rates,label = j)
+    plt.xticks(date[0:-1:999], rotation=25)
     plt.legend()    
     plt.show()
