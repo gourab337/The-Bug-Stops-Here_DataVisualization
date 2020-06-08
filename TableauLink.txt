@@ -1,0 +1,3 @@
+link to the tableau graphs: https://public.tableau.com/profile/sanchit3362#!/vizhome/CurrencyTImeSeriesDataVisualization/Dashboard1?publish=yes
+All the data used for this was cleaned and wrangled by us from the data that you provided.
+We went for tableau as it is the world's leading data visualization software
