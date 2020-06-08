@@ -1,12 +1,15 @@
 import pandas as pd
-import matplotlib.pyplot as plt
-import matplotlib
 df = pd.read_csv("dataset.csv")  #reading the dataset.
-print(df.head())
-columns = list(df.columns) # putting the columns in a list.
-print(columns)
-df['Time Serie'] = pd.to_datetime(df['Time Serie'])  # converting string to datetime. 
+columns = df.columns
+#df.drop('index', inplace=True, axis=0)
+df = df[df[columns[1:]] != 'ND']
+df['Time Serie'] = pd.to_datetime(df['Time Serie'])  # converting string to datetime.
 df['Time Serie'] = df['Time Serie'].dt.to_period('D')
+print(df['Time Serie'].head())
+for i in columns[2:]:
+    df[i] = df[i].astype('float64')
+df.to_excel("dataset.xlsx")  #saving the data as excel for data visualization in tableau
+print(columns)
 # we had to hard code a lot because for some reason the format option of python was not working when saving excel files.
 df1 = df[[columns[0], columns[1], columns[2]]]
 df1.to_excel("australia.xlsx", index=False)
@@ -52,4 +55,6 @@ df1 = df[[columns[0], columns[1], columns[22]]]
 df1.to_excel("taiwan.xlsx", index=False)
 df1 = df[[columns[0], columns[1], columns[23]]]
 df1.to_excel("thailand.xlsx", index=False)
+df1 = df.iloc[[-1]]
+df1.to_excel("CurrentData.xlsx")
 
